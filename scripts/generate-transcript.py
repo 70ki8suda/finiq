@@ -16,19 +16,28 @@ def generate_transcript(mp3_file, output_dir):
     output_file_name = os.path.splitext(os.path.basename(mp3_file))[0] + '.txt'  # {{ edit_1 }}
     # トランスクリプトをファイルに保存
     output_file = os.path.join(output_dir, output_file_name)  # 引数で受け取ったファイル名を使用
-    with open(output_file, "w") as f:
-        f.write(result['text'])
+    try:
+        # ... existing code ...
+        with open(output_file, "w") as f:
+            f.write(result['text'])
+        print(f"✅ Transcript generated successfully: {output_file}")
+    except Exception as e:
+        print(f"❌ Error generating transcript: {str(e)}")
+        raise
 
 # コマンドライン引数の取得
 if __name__ == "__main__":
-    if len(sys.argv) != 3:  # 2つの引数を期待
+    if len(sys.argv) != 3:
+        print("❌ Error: Incorrect number of arguments")
         print("Usage: python generate-transcript.py <mp3_file> <output_dir>")
         sys.exit(1)
 
-    # MP3ファイルのパスを構築
-    mp3_path =  sys.argv[1]
-    # 出力ディレクトリを構築
-    sub_dir = sys.argv[2]  # 引数からサブディレクトリ名を取得
-    output_directory = os.path.join("finiq/content", sub_dir)
-
-    generate_transcript(mp3_path, output_directory)  # 引数からoutput_file_nameを削除
+    try:
+        mp3_path = sys.argv[1]
+        sub_dir = sys.argv[2]
+        output_directory = os.path.join(os.path.dirname(os.path.dirname(__file__)), "transcript", sub_dir)
+        
+        generate_transcript(mp3_path, output_directory)
+    except Exception as e:
+        print(f"❌ Error: {str(e)}")
+        sys.exit(1)
