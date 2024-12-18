@@ -36,8 +36,8 @@ def load_transcript(file_path: str) -> str:
 
 def split_text(text: str) -> List[str]:
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=3000,
-        chunk_overlap=300,
+        chunk_size=1500,
+        chunk_overlap=150,
         separators=["\n\n", "\n", ".", "!", "?", ",", " "]
     )
     return splitter.split_text(text)
@@ -68,21 +68,7 @@ def clean_transcript(text: str, llm) -> str:
        - 一般的な会話や雑談部分
        - 話者の個人的な感想
     
-    4. 記事の構成例：
-       ## 主要なポイント
-       - ポイント1
-       - ポイント2
-       
-       ## 市場分析
-       具体的な分析内容...
-       
-       ## 専門家の見解
-       > 専門家の重要なコメント
-       
-       ## 今後の展望
-       将来予測や見通しについて...
-    
-    5. 全体の長さは原文の約40-50%程度を目安にしてください
+    4. 全体の長さは原文の約70-90%程度を目安にしてください
     
     テキスト:
     {text}
