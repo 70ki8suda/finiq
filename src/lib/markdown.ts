@@ -11,6 +11,8 @@ interface ArticleMetadata {
   category: string;
   date: string;
   title: string;
+  summary: string;
+  tags: string[];
 }
 
 export async function getArticleBySlug(category: string, slug: string) {
@@ -27,15 +29,17 @@ export async function getArticleBySlug(category: string, slug: string) {
     category,
     title: data.title,
     date: data.date,
+    summary: data.summary,
+    tags: data.tags,
   };
 }
 
 export function getAllArticles(category?: string) {
-  const categories = category ? [category] : fs.readdirSync(contentDirectory);
+  const categories = category ? [category] : fs.readdirSync(contentDirectory).filter((cat) => cat !== '.DS_Store');
 
   const articles: ArticleMetadata[] = categories.flatMap((cat) => {
     const categoryPath = path.join(contentDirectory, cat);
-    const fileNames = fs.readdirSync(categoryPath);
+    const fileNames = fs.readdirSync(categoryPath).filter((fileName) => fileName !== '.DS_Store');
 
     return fileNames.map((fileName) => {
       const slug = fileName.replace(/\.md$/, '');
@@ -48,6 +52,8 @@ export function getAllArticles(category?: string) {
         category: cat,
         title: data.title,
         date: data.date,
+        summary: data.summary,
+        tags: data.tags,
       };
     });
   });
@@ -60,5 +66,5 @@ export function getCategories() {
     fs.mkdirSync(contentDirectory);
     return [];
   }
-  return fs.readdirSync(contentDirectory);
+  return fs.readdirSync(contentDirectory).filter((cat) => cat !== '.DS_Store');
 }

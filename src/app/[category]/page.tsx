@@ -1,5 +1,7 @@
 import { getAllArticles, getCategories } from '@/lib/markdown';
 import Link from 'next/link';
+import ArticleCard from './_components/ArticleCard/ArticleCard';
+import styles from './page.module.css';
 
 export async function generateStaticParams() {
   const categories = getCategories();
@@ -8,20 +10,24 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function CategoryPage({ params: { category } }: { params: { category: string } }) {
+export default async function CategoryPage({ params }: { params: { category: string } }) {
+  // paramsを非同期で解決
+  const { category } = await params;
   const articles = getAllArticles(category);
 
   return (
-    <div>
-      <h1>{category.toUpperCase()} Articles</h1>
-      <div>
+    <div className={styles.container}>
+      <h1 className={styles.heading}>{category.toUpperCase()} Articles</h1>
+      <div className={styles.articles}>
         {articles.map((article) => (
-          <article key={article.slug}>
-            <Link href={`/${category}/${article.slug}`}>
-              <h2>{article.title}</h2>
-              <time>{article.date}</time>
-            </Link>
-          </article>
+          <Link key={article.slug} href={`/${category}/${article.slug}`} className={styles.articleLink}>
+            <ArticleCard
+              metadata={{
+                ...article,
+                tags: article.tags || [],
+              }}
+            />
+          </Link>
         ))}
       </div>
     </div>
