@@ -1,24 +1,16 @@
 import Link from 'next/link';
 import { getCategories } from '@/lib/markdown';
+import styles from './page.module.css';
 
 export default function HomePage() {
   const categories = getCategories();
 
   return (
-    <div>
-      <h1>FINIQ</h1>
+    <div className={styles.container}>
+      <h1 className={styles.heading}>FINIQ</h1>
       <div>
         {categories.map((category) => (
-          <Link
-            key={category}
-            href={`/${category}`}
-            style={{
-              display: 'block',
-              padding: '1rem',
-              margin: '0.5rem 0',
-              border: '1px solid #eaeaea',
-            }}
-          >
+          <Link key={category} href={`/${category}`} className={styles.categoryLink}>
             {category.toUpperCase()}
           </Link>
         ))}
