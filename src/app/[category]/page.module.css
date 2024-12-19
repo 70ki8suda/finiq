@@ -26,3 +26,23 @@
 .articleLink:hover {
   transform: translateY(-4px);
 }
+
+.backButton {
+  margin-bottom: 1em;
+  display: inline-block;
+}
+
+.backButton button {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 18px;
+}
+
+.backButton button:hover {
+  background-color: #005bb5;
+}

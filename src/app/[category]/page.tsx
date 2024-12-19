@@ -30,6 +30,9 @@ export default async function CategoryPage({ params }: { params: { category: str
           </Link>
         ))}
       </div>
+      <Link href='/' className={styles.backButton}>
+        <button>Topに戻る</button>
+      </Link>
     </div>
   );
 }
