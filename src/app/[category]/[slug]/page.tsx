@@ -13,8 +13,8 @@ export async function generateStaticParams() {
   });
 }
 
-export default async function ArticlePage({ params }: { params: { category: string; slug: string } }) {
-  const { category, slug } = await params;
+export default async function ArticlePage({ params }: { params: Promise<{ category: string; slug: string }> }) {
+  const { category, slug } = await params; // Await the params if it's a promise
   const article = await getArticleBySlug(category, slug);
   return (
     <article className={styles.container}>

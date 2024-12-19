@@ -10,7 +10,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function CategoryPage({ params }: { params: { category: string } }) {
+export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   // paramsを非同期で解決
   const { category } = await params;
   const articles = getAllArticles(category);
