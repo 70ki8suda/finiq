@@ -1,5 +1,5 @@
 # 実行例
-# python run_all.py /path/to/audio.mp3 category_name 
+# python generate-article.py /path/to/audio.mp3 category_name 
 
 import subprocess
 import sys
