@@ -2,7 +2,7 @@
 # python generate-article.py "cnbc" "example.txt"
 
 import os
-from typing import List, Dict
+from typing import List
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
@@ -11,7 +11,6 @@ from langchain.output_parsers import PydanticOutputParser
 from pydantic import BaseModel, Field
 import yaml
 from datetime import datetime
-import json
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -65,8 +64,6 @@ def clean_transcript(text: str, llm) -> str:
     3. 以下は削除または簡潔にしてください：
        - 広告セクション
        - 冗長な説明や繰り返し
-       - 一般的な会話や雑談部分
-       - 話者の個人的な感想
     
     4. 全体の長さは原文の約70-90%程度を目安にしてください
     
