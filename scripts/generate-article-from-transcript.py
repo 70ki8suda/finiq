@@ -154,7 +154,7 @@ def generate_slug(file_name: str, date: str) -> str:
     base_name = os.path.splitext(file_name)[0]
     
     # 特殊文字を削除
-    slug = re.sub(r'[\'""".,!?&]', '', base_name)
+    slug = re.sub(r'[^a-zA-Z0-9]', '', base_name)
     
     # 単語に分割して小文字に変換
     words = [w.lower() for w in re.split(r'[\s_-]+', slug)]
