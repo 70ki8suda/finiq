@@ -1,6 +1,6 @@
 import { getAllArticles, getCategories } from '@/lib/markdown';
 import Link from 'next/link';
-import ArticleCard from './_components/ArticleCard/ArticleCard';
+import ArticleCard from '../_components/ArticleCard/ArticleCard';
 import styles from './page.module.css';
 
 export async function generateStaticParams() {

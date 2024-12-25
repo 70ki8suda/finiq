@@ -28,3 +28,7 @@
   background-color: #e0e0e0;
   transform: translateY(-2px);
 }
+
+.recentArticles_heading{
+  margin-bottom: .4em;
+}
