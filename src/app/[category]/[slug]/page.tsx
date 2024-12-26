@@ -24,7 +24,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ catego
   const sameDayArticles = allArticles.filter((a) => a.date === article.date && a.slug !== slug);
   return (
     <article className={styles.container}>
-      <h1 className={styles.title}>{article.title}</h1>
+      <h1 className={styles.title}>
+        {article.title}　<span className={styles.categoryName}>{category.toUpperCase()}</span>
+      </h1>
+
       <time className={styles.date}>{article.date}</time>
       <div className={styles.content} dangerouslySetInnerHTML={{ __html: article.content }} />
 

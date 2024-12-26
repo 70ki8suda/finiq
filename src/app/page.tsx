@@ -19,6 +19,7 @@ export default function HomePage() {
         ))}
       </div>
       <div>
+        <h2 className={styles.categories_heading}>カテゴリ一覧</h2>
         {categories.map((category) => (
           <Link key={category} href={`/${category}`} className={styles.categoryLink}>
             {category.toUpperCase()}

@@ -29,6 +29,7 @@
   transform: translateY(-2px);
 }
 
-.recentArticles_heading{
+.recentArticles_heading,
+.categories_heading{
   margin-bottom: .4em;
 }

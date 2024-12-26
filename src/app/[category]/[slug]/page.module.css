@@ -58,3 +58,10 @@
 .backButton button:hover {
   background-color: #005bb5;
 }
+
+.categoryName{
+  background-color: #f0f0f0;
+  padding: .25em .75em;
+  border-radius: 16px;
+  font-size: .75em;
+}
