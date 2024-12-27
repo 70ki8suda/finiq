@@ -154,7 +154,7 @@ def generate_slug(file_name: str, date: str) -> str:
     base_name = os.path.splitext(file_name)[0]
     
     # 特殊文字を削除
-    slug = re.sub(r'[\'"".,!?&]', '', base_name)
+    slug = re.sub(r'[\'’"".,!?&]', '', base_name)
     
     # 単語に分割して小文字に変換
     words = [w.lower() for w in re.split(r'[\s_-]+', slug)]
@@ -255,6 +255,7 @@ def improve_translation(section: ArticleSection, llm) -> ArticleSection:
        - 重要な市場情報や分析
        - 数値データの正確性
        - 専門家の見解や予測
+    4. "この記事は、ブルームバーグニュースのポッドキャストからの情報を基に作成されました。"のように出展をほのめかすような文章は削除してください。
     
     現在の翻訳:
     {text}

@@ -6,6 +6,10 @@ import sys
 # /fuga/hoge.mp3 cnbc
 
 def generate_transcript(mp3_file, output_dir):
+    # Check if the mp3_file path is enclosed in single quotes and replace them with double quotes
+    if mp3_file.startswith("'") and mp3_file.endswith("'"):
+        mp3_file = '"' + mp3_file[1:-1] + '"'
+
     # Whisperモデルのロード
     model = whisper.load_model("base")
     # 音声ファイルのトランスクリプトを生成
