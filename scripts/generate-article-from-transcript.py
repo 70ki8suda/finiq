@@ -2,6 +2,8 @@
 # python generate-article.py "cnbc" "example.txt"
 
 import os
+import subprocess
+import sys
 from typing import List
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import ChatOpenAI
@@ -336,6 +338,21 @@ def main(category: str, file_name: str):
     
     # Combine translated sections
     full_content = "\n\n".join(section.content for section in sections)
+
+    # Execute the write-ai-agent-colum.py script and append its output to full_content
+    try:
+        # Run the write-ai-agent-colum.py script
+        result = subprocess.run(
+            [sys.executable, "write-ai-agent-column.py", str(transcript_path)],
+            capture_output=True,
+            text=True,
+            check=True
+        )
+        # Append the column content to full_content
+        full_content += "\n\n" + result.stdout.strip()
+    except subprocess.CalledProcessError as e:
+        print(f"Error running write-ai-agent-colum.py: {e}")
+        sys.exit(1)
     
     # Save as markdown
     output_file = os.path.splitext(file_name)[0] + '.md'
