@@ -92,7 +92,7 @@ def clean_transcript(text: str, llm) -> str:
         # その他の場合
         return str(result)
 
-def generate_metadata(text: str, file_path: Path, llm) -> ArticleMetadata:
+def generate_metadata(category: str, text: str, file_path: Path, llm) -> ArticleMetadata:
     # 1. パーサーを作成（ArticleMetadataの構造に基づく）
     parser = PydanticOutputParser(pydantic_object=ArticleMetadata)
     
@@ -115,11 +115,13 @@ def generate_metadata(text: str, file_path: Path, llm) -> ArticleMetadata:
     
     要件：
     1. タイトルは検索エンジンで見つけやすく、かつ内容を適切に表現するものにしてください
-    2. カテゴリーは広すぎず狭すぎない適切な粒度を選んでください
+    2. カテゴリーはこちらから指定したものをそのまま加工せずでお願いします
     3. タグは検索やナビゲーションに有用なものを5-8個程度選択してください
     4. 要約は記事の主要なポイントを簡潔に表現してください
     5. 西暦の年数をタイトルに含む場合は正しい年数を表記するように注意してください (2024年についての情報であれば2024年、2025年についての情報であれば2025年と表記するように注意してください。誤った表記はメディアの信頼性を損ねます)
     
+    カテゴリー:
+    {category}
     テキスト:
     {text}
     
@@ -133,7 +135,7 @@ def generate_metadata(text: str, file_path: Path, llm) -> ArticleMetadata:
     
     # 4. チェーンを構築して実行
     chain = formatted_prompt | llm | parser
-    result = chain.invoke({"text": text})
+    result = chain.invoke({"text": text, "category": category})
     
     # 5. 日付を設定して返す
     result.date = datetime.fromtimestamp(file_path.stat().st_mtime).strftime('%Y-%m-%d')
@@ -327,7 +329,7 @@ def main(category: str, file_name: str):
     cleaned_text = clean_transcript(raw_text, llm)
     
     # Generate metadata
-    metadata = generate_metadata(cleaned_text, transcript_path, llm)
+    metadata = generate_metadata(category, cleaned_text, transcript_path, llm)
 
     # Split text and translate
     sections = []
